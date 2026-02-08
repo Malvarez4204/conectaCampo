@@ -1,331 +1,373 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conecta Campo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conecta Campo: Plataforma líder en agrotecnología para el comercio justo y sostenible.">
+    <title>Conecta Campo | Innovación Rural</title>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-/* ===== FONDO ===== */
-body{
-  background:
-    radial-gradient(circle at 20% 20%, #e7f9ee 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, #d1f2dc 0%, transparent 45%),
-    linear-gradient(180deg,#f6fff9,#ecf8f0);
-  color:#1f2d1f;
-  scroll-behavior:smooth;
-}
+    <style>
+        /* --- ESTILOS BASE --- */
+        :root {
+            --primario: #2E7D32;
+            --secundario: #34c759;
+            --fondo: #f6fff9;
+            --texto: #1f2d1f;
+        }
 
-/* ===== NAV ===== */
-header{
-  position:sticky;
-  top:0;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(12px);
-  z-index:999;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 50px;
-  flex-wrap:wrap;
-}
+        body {
+            background: linear-gradient(180deg, #f6fff9, #ecf8f0);
+            color: var(--texto);
+            scroll-behavior: smooth;
+            transition: background 0.3s, color 0.3s;
+        }
 
-nav h3{
-  font-weight:800;
-  color:#2E7D32;
-}
+        /* --- MODO ALTO CONTRASTE --- */
+        body.high-contrast { background: #000 !important; color: #fff !important; }
+        body.high-contrast section, body.high-contrast header, body.high-contrast footer, body.high-contrast .modal-content { background: #000 !important; border: 1px solid #fff; }
+        body.high-contrast h2, body.high-contrast h3, body.high-contrast a, body.high-contrast p { color: #ffff00 !important; }
+        body.high-contrast .btn { background: #ffff00 !important; color: #000 !important; }
 
-nav ul{
-  display:flex;
-  gap:28px;
-  list-style:none;
-  flex-wrap:wrap;
-}
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, .9);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-nav a{
-  text-decoration:none;
-  color:#2E7D32;
-  font-weight:600;
-}
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
 
-/* ===== BOTONES ===== */
-.btn{
-  background:linear-gradient(135deg,#34c759,#2E7D32);
-  color:#fff;
-  padding:14px 34px;
-  border:none;
-  border-radius:50px;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 12px 30px rgba(46,125,50,.35);
-  transition:.35s;
-}
-.btn:hover{transform:scale(1.07)}
-.btn:focus{outline:3px solid #ffd54f}
+        nav ul { display: flex; gap: 25px; list-style: none; align-items: center; }
+        nav a { text-decoration: none; color: var(--primario); font-weight: 600; transition: 0.3s; }
 
-/* ===== HERO ===== */
-.slider{
-  position:relative;
-  height:100vh;
-  overflow:hidden;
-}
+        .btn {
+            background: linear-gradient(135deg, var(--secundario), var(--primario));
+            color: #fff;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
 
-.slide{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transition:opacity 1.5s;
-}
-.slide.active{opacity:1}
-.slide::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.6);
-}
+        /* --- MODAL LOGIN --- */
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, .8);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white; padding: 40px; border-radius: 30px;
+            width: 90%; max-width: 400px; text-align: center;
+        }
+        .modal-content input {
+            width: 100%; padding: 15px; margin: 10px 0;
+            border-radius: 10px; border: 1px solid #ddd;
+        }
 
-.hero-content{
-  position:absolute;
-  top:50%;
-  left:10%;
-  transform:translateY(-50%);
-  color:#fff;
-  max-width:560px;
-}
+        /* --- HERO --- */
+        .slider { position: relative; height: 85vh; overflow: hidden; background: #000; }
+        .slide {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide::after { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); }
 
-.hero-content h1{font-size:3.4rem}
-.hero-content p{line-height:1.9;margin:20px 0}
+        .hero-content {
+            position: absolute; top: 50%; left: 10%; transform: translateY(-50%);
+            color: #fff; max-width: 700px; z-index: 10;
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; }
 
-/* ===== SECCIONES ===== */
-section{
-  padding:100px 10%;
-}
+        /* --- CONTENIDO --- */
+        section { padding: 100px 10% }
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            align-items: center;
+        }
+        .text-box h2 { font-size: 2.5rem; color: var(--primario); margin-bottom: 20px; }
+        .text-box p { font-size: 1.1rem; line-height: 1.8; color: #444; margin-bottom: 20px; text-align: justify; }
+        img.featured-img { width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
 
-.section-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
+        /* --- REEL --- */
+        .reel-section { padding: 50px 0; background: #fff; overflow: hidden; }
+        .reel-container {
+            display: flex;
+            width: calc(300px * 8);
+            animation: scroll 25s linear infinite;
+        }
+        .reel-container img {
+            width: 280px; height: 380px; object-fit: cover;
+            margin: 0 10px; border-radius: 20px; filter: grayscale(20%); transition: 0.5s;
+        }
+        .reel-container img:hover { filter: grayscale(0%); transform: scale(1.05); }
 
-.section-grid img{
-  width:100%;
-  border-radius:28px;
-}
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-300px * 4)); }
+        }
 
-h2{font-size:2.6rem;color:#2E7D32}
-p{font-size:1.08rem;line-height:1.9}
+        /* --- ASISTENTE --- */
+        .assistant-card {
+            background: #fff; padding: 40px; border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); border: 1px solid #eef2ee;
+        }
+        .chat-bubble { background: #e8f5e9; padding: 20px; border-radius: 20px 20px 20px 5px; margin-bottom: 20px; line-height: 1.5; }
 
-/* ===== FORM ===== */
-form{
-  background:white;
-  padding:45px;
-  border-radius:30px;
-  max-width:520px;
-}
+        /* --- FOOTER --- */
+        footer { background: #121212; color: #e0e0e0; padding: 80px 10% 40px; text-align: center; }
+        .footer-social { margin: 30px 0; }
+        .footer-social a { color: var(--secundario); font-size: 2rem; margin: 0 20px; transition: 0.3s; }
 
-input,textarea{
-  width:100%;
-  padding:16px;
-  margin-bottom:16px;
-  border-radius:14px;
-  border:1px solid #ccc;
-}
+        /* --- ACCESIBILIDAD DESPLEGABLE --- */
+        #a11y-menu-container {
+            position: fixed; left: 20px; bottom: 20px;
+            display: flex; flex-direction: column-reverse;
+            gap: 12px; z-index: 1500;
+        }
+        .a11y-main-btn {
+            width: 60px; height: 60px; border-radius: 50%; border: none;
+            background: var(--primario); color: white; font-size: 1.5rem;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        #a11y-options {
+            display: flex; flex-direction: column; gap: 10px;
+            transition: all 0.3s ease-in-out; opacity: 1; transform: translateY(0);
+        }
+        #a11y-options.hidden {
+            opacity: 0; transform: translateY(20px); pointer-events: none;
+        }
+        .a11y-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--primario);
+            background: #fff; color: var(--primario); cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex;
+            align-items: center; justify-content: center; font-size: 1.1rem;
+        }
 
-/* ===== MODAL ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-.modal-content{
-  background:white;
-  padding:40px;
-  border-radius:30px;
-}
-
-/* ===== FOOTER ===== */
-footer{
-  background:#1a1a1a;
-  color:#fff;
-  text-align:center;
-  padding:40px;
-}
-
-/* ===== ACCESIBILIDAD ===== */
-#a11y-tools{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  z-index:2000;
-}
-#a11y-tools button{
-  background:#1b5e20;
-  color:white;
-  border:none;
-  padding:10px 14px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-/* ===== ALTO CONTRASTE ===== */
-body.high-contrast{
-  background:black !important;
-  color:white !important;
-}
-body.high-contrast h1,
-body.high-contrast h2,
-body.high-contrast p{
-  color:#00ff88 !important;
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-
-/* TABLET */
-@media(max-width:1024px){
-  nav{padding:16px 30px}
-  .hero-content{left:6%}
-  .hero-content h1{font-size:2.8rem}
-}
-
-/* TABLET / MOBILE */
-@media(max-width:768px){
-  .hero-content{
-    left:6%;
-    right:6%;
-  }
-  .hero-content h1{font-size:2.3rem}
-  section{padding:80px 6%}
-  .section-grid{gap:40px}
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  nav{flex-direction:column;gap:10px}
-  nav ul{justify-content:center}
-  .slider{height:85vh}
-  .hero-content h1{font-size:2rem}
-  .section-grid{grid-template-columns:1fr}
-  h2{font-size:2.1rem}
-}
-
-/* MOBILE PEQUEÑO */
-@media(max-width:400px){
-  .hero-content h1{font-size:1.7rem}
-  .btn{width:100%}
-}
-</style>
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            section { padding: 60px 5%; }
+            .hero-content { left: 5%; width: 90%; }
+        }
+    </style>
 </head>
 
 <body>
 
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <h2 style="color:var(--primario); margin-bottom:15px">Acceso al Sistema</h2>
+        <p style="margin-bottom:20px">Gestiona tus pedidos y suministros de forma centralizada.</p>
+        <input type="email" placeholder="Usuario / Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn" style="width:100%; margin-top:10px">Iniciar Sesión</button>
+        <button onclick="closeLogin()" style="background:none; border:none; color:gray; margin-top:20px; cursor:pointer; text-decoration: underline">Regresar al sitio</button>
+    </div>
+</div>
+
+<div id="a11y-menu-container">
+    <button class="a11y-main-btn" onclick="toggleA11yMenu()" title="Menú de Accesibilidad">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+    <div id="a11y-options" class="hidden">
+        <button class="a11y-btn" onclick="changeFontSize(1)" title="Aumentar"><b>A+</b></button>
+        <button class="a11y-btn" onclick="changeFontSize(-1)" title="Reducir"><b>A-</b></button>
+        <button class="a11y-btn" onclick="toggleContrast()" title="Contraste"><i class="fa-solid fa-circle-half-stroke"></i></button>
+        <button class="a11y-btn" id="readBtn" onclick="toggleRead()" title="Escuchar"><i class="fa-solid fa-volume-high"></i></button>
+    </div>
+</div>
+
 <header>
 <nav>
-  <h3>Conecta Campo</h3>
-  <ul>
-    <li><a href="#como">Cómo funciona</a></li>
-    <li><a href="#impacto">Impacto</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><button class="btn" onclick="openLogin()">Login</button></li>
-  </ul>
+    <h3><i class="fa-solid fa-seedling"></i> Conecta Campo</h3>
+    <ul>
+        <li><a href="#como">Nuestro Modelo</a></li>
+        <li><a href="#impacto">Impacto Social</a></li>
+        <li><a href="#contacto">Alianzas</a></li>
+        <li><button class="btn" onclick="openLogin()">Portal Pro</button></li>
+    </ul>
 </nav>
 </header>
 
-<!-- HERO -->
-<div class="slider">
-  <div class="slide active" style="background-image:url('imagenes/hero1.png')"></div>
-  <div class="slide" style="background-image:url('imagenes/hero2.jpg')"></div>
-  <div class="slide" style="background-image:url('imagenes/hero3.jpg')"></div>
-
-  <div class="hero-content">
-    <h1>Del campo a tu mesa</h1>
-    <p>Reducimos desperdicio y apoyamos productores locales.</p>
-    <button class="btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Únete</button>
-  </div>
-</div>
-
-<section id="como">
-  <div class="section-grid">
-    <img src="imagenes/como-funciona.png">
-    <div>
-      <h2>Cómo funciona</h2>
-      <p>Productores ofrecen excedentes y consumidores los rescatan.</p>
+<main id="main-content">
+    <div class="slider">
+        <div class="slide active" style="background-image:url('imagenes/hero1.png')"></div>
+        <div class="slide" style="background-image:url('imagenes/hero2.jpg')"></div>
+        <div class="slide" style="background-image:url('imagenes/hero3.jpg')"></div>
+        <div class="hero-content">
+            <h1>El Campo en la Era Digital.</h1>
+            <p>Implementamos soluciones tecnológicas de última generación para conectar la riqueza de la tierra con las necesidades de la ciudad. Eliminamos la incertidumbre logística y garantizamos precios honestos para quienes alimentan al mundo.</p>
+            <button class="btn" onclick="document.getElementById('como').scrollIntoView()">Conoce más</button>
+        </div>
     </div>
-  </div>
-</section>
 
-<section id="impacto">
-  <div class="section-grid">
-    <div>
-      <h2>Impacto real</h2>
-      <p>Menos desperdicio, menos CO₂ y más apoyo al campo.</p>
+    <section id="como">
+        <div class="section-grid">
+            <img src="imagenes/trabajo1.jpg" class="featured-img" alt="Productores en el campo">
+            <div class="text-box">
+                <h2>¿Cómo funciona nuestro ecosistema?</h2>
+                <p>Nuestra infraestructura digital se basa en un sistema de monitoreo en tiempo real que identifica el punto exacto de maduración de las cosechas. A través de nuestra red, los agricultores pueden reportar excedentes que antes se perdían por falta de canales de distribución inmediatos.</p>
+                <p>Este modelo de "Cosecha bajo demanda" permite que el consumidor final o el aliado comercial reciba productos frescos en menos de 24 horas tras su recolección. Al optimizar las rutas de transporte mediante algoritmos de inteligencia logística, reducimos drásticamente los costos operativos y el impacto ambiental.</p>
+                <p><b>Justicia Financiera:</b> Gracias a la eliminación de hasta 5 niveles de intermediación, logramos que el agricultor perciba ingresos dignos, reinvirtiendo el 90% del valor de mercado directamente en la comunidad rural.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="impacto">
+        <div class="section-grid">
+            <div class="text-box">
+                <h2>Impacto Real y Regenerativo</h2>
+                <p>No somos solo una plataforma comercial; somos una herramienta de cambio sistémico. Conecta Campo ha logrado mitigar la pérdida de más de 800 toneladas de alimentos frescos anualmente, lo que se traduce en una reducción significativa de la huella de carbono y el desperdicio de recursos hídricos.</p>
+                <p>Trabajamos activamente en el empoderamiento de más de 1,200 familias rurales, brindándoles no solo acceso al mercado, sino también capacitación técnica en agricultura orgánica y regenerativa. Este enfoque permite restaurar la salud de los suelos y asegurar la biodiversidad local para las futuras generaciones.</p>
+                <p>Nuestros indicadores muestran un incremento del 45% en la estabilidad económica de las comunidades afiliadas, permitiendo que jóvenes rurales vean en el campo un futuro tecnológico y rentable, frenando así la migración masiva a las urbes.</p>
+            </div>
+            <img src="imagenes/impacto.jpg" class="featured-img" alt="Niños en el campo sonriendo">
+        </div>
+    </section>
+
+    <div class="reel-section">
+        <div class="reel-container">
+            <img src="imagenes/reel2.jpg" alt="Producto fresco">
+            <img src="imagenes/reel3.jpg" alt="Distribución">
+            <img src="imagenes/reel4.jpg" alt="Suelo sano">
+            <img src="imagenes/reel5.jpg" alt="Cosecha">
+            <img src="imagenes/reel2.jpg" alt="Producto fresco">
+            <img src="imagenes/reel3.jpg" alt="Distribución">
+            <img src="imagenes/reel4.jpg" alt="Suelo sano">
+            <img src="imagenes/reel5.jpg" alt="Cosecha">
+        </div>
     </div>
-    <img src="imagenes/impacto.png">
-  </div>
-</section>
 
-<section id="contacto">
-  <h2>Contacto</h2>
-  <form>
-    <input placeholder="Nombre">
-    <input placeholder="Correo">
-    <textarea placeholder="Mensaje"></textarea>
-    <button class="btn" style="width:100%">Enviar</button>
-  </form>
-</section>
+    <section id="contacto">
+        <div class="section-grid">
+            <form id="contactForm">
+                <h2>Únete a la Revolución</h2>
+                <p style="margin-bottom:20px; color:#666">¿Buscas abastecer tu restaurante, hogar o negocio con lo mejor del campo? Déjanos tus datos.</p>
+                <input type="text" id="nombre" placeholder="Nombre completo o Empresa" required style="width:100%; padding:15px; margin:10px 0; border-radius:12px; border:1px solid #ddd;">
+                <input type="email" id="email" placeholder="Correo electrónico corporativo" required style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #ddd;">
+                <textarea id="mensaje" placeholder="Cuéntanos tus necesidades de volumen o logística..." required style="width:100%; padding:15px; height:120px; border-radius:12px; border:1px solid #ddd;"></textarea>
+                <button class="btn" type="submit" style="width:100%; padding:18px">Solicitar Información</button>
+            </form>
 
-<div class="modal" id="login">
-  <div class="modal-content">
-    <button class="btn" onclick="closeLogin()">Cerrar</button>
-  </div>
-</div>
+            <div class="assistant-card">
+                <h3><i class="fa-solid fa-robot"></i> Asistente CampoBot</h3>
+                <div class="chat-bubble" id="botMsg">¡Hola! Soy tu guía inteligente. Estamos optimizando la cadena de suministro en tu región.</div>
+                <button class="opt-btn" onclick="botSpeak('El registro requiere validar tu ubicación GPS.')" style="display:block; width:100%; padding:12px; margin:8px 0; border:1px solid var(--primario); border-radius:12px; background:transparent; color:var(--primario); cursor:pointer; text-align:left;"><b>1.</b> Registro Productor</button>
+                <button class="opt-btn" onclick="botSpeak('Nuestras unidades en frío garantizan calidad premium.')" style="display:block; width:100%; padding:12px; margin:8px 0; border:1px solid var(--primario); border-radius:12px; background:transparent; color:var(--primario); cursor:pointer; text-align:left;"><b>2.</b> Logística</button>
+                <button class="opt-btn" onclick="botSpeak('Contamos con planes para altos volúmenes.')" style="display:block; width:100%; padding:12px; margin:8px 0; border:1px solid var(--primario); border-radius:12px; background:transparent; color:var(--primario); cursor:pointer; text-align:left;"><b>3.</b> Consultas Corporativas</button>
+            </div>
+        </div>
+    </section>
+</main>
 
 <footer>
-  <p>© 2026 Conecta Campo 🌱</p>
+    <div class="footer-content">
+        <p style="font-size:1.4rem; margin-bottom:10px"><b>Conecta Campo 🌱</b></p>
+        <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <p>© 2026 Todos los derechos reservados.</p>
+    </div>
 </footer>
 
-<!-- ACCESIBILIDAD -->
-<div id="a11y-tools">
-  <button onclick="fontSize(1)">A+</button>
-  <button onclick="fontSize(-1)">A-</button>
-  <button onclick="toggleContrast()">🌓</button>
-</div>
-
 <script>
-let slides=document.querySelectorAll('.slide');
-let i=0;
-setInterval(()=>{
-  slides[i].classList.remove('active');
-  i=(i+1)%slides.length;
-  slides[i].classList.add('active');
-},5000);
+// --- LÓGICA DEL FORMULARIO DE CONTACTO ---
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evita que la página se recargue
+    
+    // Generar un folio aleatorio (Ej: CC-8342)
+    const folio = "CC-" + Math.floor(1000 + Math.random() * 9000);
+    const nombre = document.getElementById('nombre').value;
 
-let currentSize=100;
-function fontSize(c){currentSize+=c*10;document.documentElement.style.fontSize=currentSize+'%'}
-function toggleContrast(){document.body.classList.toggle('high-contrast')}
-function openLogin(){login.style.display='flex'}
-function closeLogin(){login.style.display='none'}
+    // Mostrar el mensaje solicitado
+    alert(`¡Gracias por contactarnos, ${nombre}!\n\nTu solicitud ha sido registrada.\nFolio de seguimiento: ${folio}\n\nUn asesor se pondrá en contacto contigo en un tiempo máximo de 24 hrs.`);
+    
+    // Limpiar el formulario
+    this.reset();
+});
+
+// --- SLIDER (3 IMÁGENES) ---
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+setInterval(nextSlide, 5000);
+
+// --- MODAL LOGIN ---
+function openLogin() { 
+    document.getElementById('loginModal').style.display = 'flex'; 
+    document.body.style.overflow = 'hidden'; 
+}
+function closeLogin() { 
+    document.getElementById('loginModal').style.display = 'none'; 
+    document.body.style.overflow = 'auto'; 
+}
+
+// --- ACCESIBILIDAD ---
+let fontSize = 100;
+function changeFontSize(n) {
+    fontSize += (n * 10);
+    document.body.style.fontSize = fontSize + "%";
+}
+function toggleContrast() { document.body.classList.toggle('high-contrast'); }
+
+function toggleA11yMenu() {
+    const options = document.getElementById('a11y-options');
+    options.classList.toggle('hidden');
+    const mainBtn = document.querySelector('.a11y-main-btn');
+    mainBtn.style.transform = options.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+let isReading = false;
+function toggleRead() {
+    if (isReading) {
+        speechSynthesis.cancel();
+        isReading = false;
+        document.getElementById('readBtn').innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+    } else {
+        const text = document.getElementById('main-content').innerText;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.onend = () => {
+            isReading = false;
+            document.getElementById('readBtn').innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+        };
+        speechSynthesis.speak(utterance);
+        isReading = true;
+        document.getElementById('readBtn').innerHTML = '<i class="fa-solid fa-circle-stop"></i>';
+    }
+}
+
+function botSpeak(msg) {
+    document.getElementById('botMsg').innerText = msg;
+}
 </script>
 
 </body>
